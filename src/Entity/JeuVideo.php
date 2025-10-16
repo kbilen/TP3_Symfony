@@ -39,6 +39,10 @@ class JeuVideo
     #[ORM\ManyToOne]
     private ?Genre $Genre = null;
 
+    #[ORM\ManyToOne(inversedBy: 'jeuVideos')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Genre $genre = null;
+
     public function getId(): ?int
     {
         return $this->id;

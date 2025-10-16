@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GenreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,17 @@ class Genre
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updateAt = null;
+
+    /**
+     * @var Collection<int, JeuVideo>
+     */
+    #[ORM\OneToMany(targetEntity: JeuVideo::class, mappedBy: 'genre')]
+    private Collection $jeuVideos;
+
+    public function __construct()
+    {
+        $this->jeuVideos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,6 +115,36 @@ class Genre
     public function setUpdateAt(\DateTimeImmutable $updateAt): static
     {
         $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JeuVideo>
+     */
+    public function getJeuVideos(): Collection
+    {
+        return $this->jeuVideos;
+    }
+
+    public function addJeuVideo(JeuVideo $jeuVideo): static
+    {
+        if (!$this->jeuVideos->contains($jeuVideo)) {
+            $this->jeuVideos->add($jeuVideo);
+            $jeuVideo->setGenre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJeuVideo(JeuVideo $jeuVideo): static
+    {
+        if ($this->jeuVideos->removeElement($jeuVideo)) {
+            // set the owning side to null (unless already changed)
+            if ($jeuVideo->getGenre() === $this) {
+                $jeuVideo->setGenre(null);
+            }
+        }
 
         return $this;
     }
