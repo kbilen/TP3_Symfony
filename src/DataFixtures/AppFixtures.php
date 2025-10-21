@@ -18,54 +18,81 @@ class AppFixtures extends Fixture
         $genreAction->setNom('ACTION');
         $genreAction->setDescription('Jeux d\'action : jeux de plateforme, combat, tir (FPS, TPS, …)');
         $manager->persist($genreAction);
+        $genreAction->setActif(true);
+        $genreAction->setCreatedAt(new \DateTimeImmutable());
+        $genreAction->setUpdateAt(new \DateTimeImmutable());
         $genres['ACTION'] = $genreAction;
 
         $genreAventure = new Genre();
         $genreAventure->setNom('AVENTURE');
         $genreAventure->setDescription('Jeux d\'aventure narrative, point and click…');
         $manager->persist($genreAventure);
+        $genreAventure->setActif(true);
+        $genreAventure->setCreatedAt(new \DateTimeImmutable());
+        $genreAventure->setUpdateAt(new \DateTimeImmutable());
         $genres['AVENTURE'] = $genreAventure;
 
         $genreActionAventure = new Genre();
         $genreActionAventure->setNom('ACTION_AVENTURE');
         $genreActionAventure->setDescription('Infiltration, survival, …');
         $manager->persist($genreActionAventure);
+        $genreActionAventure->setActif(true);
+        $genreActionAventure->setCreatedAt(new \DateTimeImmutable());
+        $genreActionAventure->setUpdateAt(new \DateTimeImmutable());;
         $genres['ACTION_AVENTURE'] = $genreActionAventure;
 
         $genreRpg = new Genre();
         $genreRpg->setNom('RPG');
         $genreRpg->setDescription('Jeux de rôle, MMORPG, …');
         $manager->persist($genreRpg);
+        $genreRpg->setActif(true);
+        $genreRpg->setCreatedAt(new \DateTimeImmutable());
+        $genreRpg->setUpdateAt(new \DateTimeImmutable());
         $genres['RPG'] = $genreRpg;
 
         $genreStrategie = new Genre();
         $genreStrategie->setNom('STRATEGIE');
         $genreStrategie->setDescription('Jeux de stratégie (RTS, turn-based)');
         $manager->persist($genreStrategie);
+        $genreStrategie->setActif(true);
+        $genreStrategie->setCreatedAt(new \DateTimeImmutable());
+        $genreStrategie->setUpdateAt(new \DateTimeImmutable());
         $genres['STRATEGIE'] = $genreStrategie;
 
         $genreSimulation = new Genre();
         $genreSimulation->setNom('SIMULATION');
         $genreSimulation->setDescription('Jeux de simulation, de gestion');
         $manager->persist($genreSimulation);
+        $genreSimulation->setActif(false);
+        $genreSimulation->setCreatedAt(new \DateTimeImmutable());
+        $genreSimulation->setUpdateAt(new \DateTimeImmutable());
         $genres['SIMULATION'] = $genreSimulation;
 
         $genreSport = new Genre();
         $genreSport->setNom('SPORT');
         $genreSport->setDescription('Jeux de sport');
         $manager->persist($genreSport);
+        $genreSport->setActif(true);
+        $genreSport->setCreatedAt(new \DateTimeImmutable());
+        $genreSport->setUpdateAt(new \DateTimeImmutable());
         $genres['SPORT'] = $genreSport;
 
         $genreCourse = new Genre();
         $genreCourse->setNom('COURSE');
         $genreCourse->setDescription('Jeux de course par ex. automobile');
         $manager->persist($genreCourse);
+        $genreCourse->setActif(true);
+        $genreCourse->setCreatedAt(new \DateTimeImmutable());
+        $genreCourse->setUpdateAt(new \DateTimeImmutable());
         $genres['COURSE'] = $genreCourse;
 
         $genreReflexion = new Genre();
         $genreReflexion->setNom('REFLEXION');
         $genreReflexion->setDescription('Jeux de réflexion, puzzles, casse-tête');
         $manager->persist($genreReflexion);
+        $genreReflexion->setActif(true);
+        $genreReflexion->setCreatedAt(new \DateTimeImmutable());
+        $genreReflexion->setUpdateAt(new \DateTimeImmutable());
         $genres['REFLEXION'] = $genreReflexion;
 
         // Création des éditeurs
@@ -73,24 +100,32 @@ class AppFixtures extends Fixture
         $editeurSony->setNom('Sony Interactive Entertainment');
         $editeurSony->setPays('Japon');
         $editeurSony->setSiteWeb('https://www.sie.com');
+        $editeurSony->setCreatedAt(new \DateTimeImmutable());
+        $editeurSony->setUpdateAt(new \DateTimeImmutable());
         $manager->persist($editeurSony);
 
         $editeurNintendo = new Editeur();
         $editeurNintendo->setNom('Nintendo');
         $editeurNintendo->setPays('Japon');
         $editeurNintendo->setSiteWeb('https://www.nintendo.com');
+        $editeurNintendo->setCreatedAt(new \DateTimeImmutable());
+        $editeurNintendo->setUpdateAt(new \DateTimeImmutable());
         $manager->persist($editeurNintendo);
 
         $editeurMicrosoft = new Editeur();
         $editeurMicrosoft->setNom('Xbox Game Studios');
         $editeurMicrosoft->setPays('États-Unis');
         $editeurMicrosoft->setSiteWeb('https://www.xbox.com/games');
+        $editeurMicrosoft->setCreatedAt(new \DateTimeImmutable());
+        $editeurMicrosoft->setUpdateAt(new \DateTimeImmutable());
         $manager->persist($editeurMicrosoft);
 
         $editeurUbisoft = new Editeur();
         $editeurUbisoft->setNom('Ubisoft');
         $editeurUbisoft->setPays('France');
         $editeurUbisoft->setSiteWeb('https://www.ubisoft.com');
+        $editeurUbisoft->setCreatedAt(new \DateTimeImmutable());
+        $editeurUbisoft->setUpdateAt(new \DateTimeImmutable());
         $manager->persist($editeurUbisoft);
 
         // Création de jeux vidéo variés
