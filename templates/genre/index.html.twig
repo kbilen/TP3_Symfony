@@ -12,8 +12,6 @@
                 <th>Nom</th>
                 <th>Description</th>
                 <th>Actif</th>
-                <th>CreatedAt</th>
-                <th>UpdateAt</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,19 +21,19 @@
                 <td>{{ genre.id }}</td>
                 <td>{{ genre.nom }}</td>
                 <td>{{ genre.description }}</td>
-                <td>{{ genre.actif ? 'Yes' : 'No' }}</td>
+                <td>{{ genre.actif ? 'Oui' : 'Non' }}</td>
                 <td>
-                    <a href="{{ path('app_genre_show', {'id': genre.id}) }}">show</a>
-                    <a href="{{ path('app_genre_edit', {'id': genre.id}) }}">edit</a>
+                    <a href="{{ path('app_genre_show', {'id': genre.id}) }}">Consulter</a>
+                    <a href="{{ path('app_genre_edit', {'id': genre.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">aucun genre</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_genre_new') }}">Create new</a>
+    <a href="{{ path('app_genre_new') }}">Ajouter un genre</a>
 {% endblock %}
