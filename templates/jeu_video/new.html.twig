@@ -1,11 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New JeuVideo{% endblock %}
+{% block title %}Nouveau Jeu Vidéo{% endblock %}
 
 {% block body %}
-    <h1>Ajouter un JeuVideo</h1>
-
-    {{ include('jeu_video/_form.html.twig') }}
-
-    <a href="{{ path('app_jeu_video_index') }}">retour à la liste</a>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h1 class="h3 mb-0">Ajouter un Jeu Vidéo</h1>
+                </div>
+                <div class="card-body">
+                    {{ include('jeu_video/_form.html.twig') }}
+                </div>
+                <div class="card-footer bg-light">
+                    <a href="{{ path('app_jeu_video_index') }}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

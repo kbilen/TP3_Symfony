@@ -1,0 +1,11 @@
+{% block root %}
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% for item in item.children %}
+            <li class="nav-item">
+                <a href="{{ item.uri }}" class="nav-link {{ matcher.isCurrent(item) ? 'active' : '' }} {{ item.current ? 'active' : '' }}">
+                    {{ item.label }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

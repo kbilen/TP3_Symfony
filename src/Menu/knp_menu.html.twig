@@ -1,0 +1,10 @@
+{# templates/menu/knp_menu.html.twig #}
+{% import "knp_menu.html.twig" as macros %}
+
+<ul class="nav">
+    {% for item in items %}
+        <li class="nav-item{% if item.current %} active{% endif %}">
+            <a class="nav-link" href="{{ item.uri }}">{{ item.label }}</a>
+        </li>
+    {% endfor %}
+</ul>
