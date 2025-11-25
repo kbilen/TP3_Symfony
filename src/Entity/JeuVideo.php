@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: JeuVideoRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class JeuVideo
 {
     #[ORM\Id]
@@ -32,22 +33,32 @@ class JeuVideo
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageUrl = null;
 
-    #[ORM\ManyToOne(inversedBy: 'genre')]
+    #[ORM\ManyToOne(inversedBy: 'jeuVideos')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Editeur $editeur = null;
 
-    #[ORM\ManyToOne]
-    private ?Genre $Genre = null;
 
     #[ORM\ManyToOne(inversedBy: 'jeuVideos')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Genre $genre = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -140,12 +151,12 @@ class JeuVideo
 
     public function getGenre(): ?Genre
     {
-        return $this->Genre;
+        return $this->genre;
     }
 
-    public function setGenre(?Genre $Genre): static
+    public function setGenre(?Genre $genre): static
     {
-        $this->Genre = $Genre;
+        $this->genre = $genre;
 
         return $this;
     }

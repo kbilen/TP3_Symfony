@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GenreRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Genre
 {
     #[ORM\Id]
@@ -28,8 +29,8 @@ class Genre
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updateAt = null;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * @var Collection<int, JeuVideo>
@@ -40,6 +41,18 @@ class Genre
     public function __construct()
     {
         $this->jeuVideos = new ArrayCollection();
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -54,19 +67,7 @@ class Genre
 
     public function setNom(string $nom): static
     {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getYes(): ?string
-    {
-        return $this->yes;
-    }
-
-    public function setYes(?string $yes): static
-    {
-        $this->yes = $yes;
+        $this->nom = strtoupper($nom);
 
         return $this;
     }
@@ -107,14 +108,14 @@ class Genre
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updateAt;
+        return $this->updatedAt;
     }
 
-    public function setUpdateAt(\DateTimeImmutable $updateAt): static
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
-        $this->updateAt = $updateAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

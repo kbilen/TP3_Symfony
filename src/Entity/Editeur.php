@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EditeurRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Editeur
 {
     #[ORM\Id]
@@ -31,18 +32,30 @@ class Editeur
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * @var Collection<int, JeuVideo>
      */
     #[ORM\OneToMany(targetEntity: JeuVideo::class, mappedBy: 'editeur')]
-    private Collection $genre;
+    private Collection $jeuVideos;
 
     public function __construct()
     {
-        $this->genre = new ArrayCollection();
+        $this->jeuVideos = new ArrayCollection();
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -115,7 +128,7 @@ class Editeur
         return $this->updatedAt;
     }
 
-    public function setUpdateAt(\DateTimeImmutable $updatedAt): static
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 
@@ -125,27 +138,27 @@ class Editeur
     /**
      * @return Collection<int, JeuVideo>
      */
-    public function getGenre(): Collection
+    public function getJeuVideos(): Collection
     {
-        return $this->genre;
+        return $this->jeuVideos;
     }
 
-    public function addGenre(JeuVideo $genre): static
+    public function addJeuVideo(JeuVideo $jeuVideo): static
     {
-        if (!$this->genre->contains($genre)) {
-            $this->genre->add($genre);
-            $genre->setEditeur($this);
+        if (!$this->jeuVideos->contains($jeuVideo)) {
+            $this->jeuVideos->add($jeuVideo);
+            $jeuVideo->setEditeur($this);
         }
 
         return $this;
     }
 
-    public function removeGenre(JeuVideo $genre): static
+    public function removeJeuVideo(JeuVideo $jeuVideo): static
     {
-        if ($this->genre->removeElement($genre)) {
+        if ($this->jeuVideos->removeElement($jeuVideo)) {
             // set the owning side to null (unless already changed)
-            if ($genre->getEditeur() === $this) {
-                $genre->setEditeur(null);
+            if ($jeuVideo->getEditeur() === $this) {
+                $jeuVideo->setEditeur(null);
             }
         }
 

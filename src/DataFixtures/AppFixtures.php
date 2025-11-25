@@ -19,8 +19,6 @@ class AppFixtures extends Fixture
         $genreAction->setDescription('Jeux d\'action : jeux de plateforme, combat, tir (FPS, TPS, …)');
         $manager->persist($genreAction);
         $genreAction->setActif(true);
-        $genreAction->setCreatedAt(new \DateTimeImmutable());
-        $genreAction->setUpdateAt(new \DateTimeImmutable());
         $genres['ACTION'] = $genreAction;
 
         $genreAventure = new Genre();
@@ -28,8 +26,6 @@ class AppFixtures extends Fixture
         $genreAventure->setDescription('Jeux d\'aventure narrative, point and click…');
         $manager->persist($genreAventure);
         $genreAventure->setActif(true);
-        $genreAventure->setCreatedAt(new \DateTimeImmutable());
-        $genreAventure->setUpdateAt(new \DateTimeImmutable());
         $genres['AVENTURE'] = $genreAventure;
 
         $genreActionAventure = new Genre();
@@ -37,8 +33,6 @@ class AppFixtures extends Fixture
         $genreActionAventure->setDescription('Infiltration, survival, …');
         $manager->persist($genreActionAventure);
         $genreActionAventure->setActif(true);
-        $genreActionAventure->setCreatedAt(new \DateTimeImmutable());
-        $genreActionAventure->setUpdateAt(new \DateTimeImmutable());;
         $genres['ACTION_AVENTURE'] = $genreActionAventure;
 
         $genreRpg = new Genre();
@@ -46,8 +40,6 @@ class AppFixtures extends Fixture
         $genreRpg->setDescription('Jeux de rôle, MMORPG, …');
         $manager->persist($genreRpg);
         $genreRpg->setActif(true);
-        $genreRpg->setCreatedAt(new \DateTimeImmutable());
-        $genreRpg->setUpdateAt(new \DateTimeImmutable());
         $genres['RPG'] = $genreRpg;
 
         $genreStrategie = new Genre();
@@ -55,8 +47,6 @@ class AppFixtures extends Fixture
         $genreStrategie->setDescription('Jeux de stratégie (RTS, turn-based)');
         $manager->persist($genreStrategie);
         $genreStrategie->setActif(true);
-        $genreStrategie->setCreatedAt(new \DateTimeImmutable());
-        $genreStrategie->setUpdateAt(new \DateTimeImmutable());
         $genres['STRATEGIE'] = $genreStrategie;
 
         $genreSimulation = new Genre();
@@ -64,8 +54,6 @@ class AppFixtures extends Fixture
         $genreSimulation->setDescription('Jeux de simulation, de gestion');
         $manager->persist($genreSimulation);
         $genreSimulation->setActif(false);
-        $genreSimulation->setCreatedAt(new \DateTimeImmutable());
-        $genreSimulation->setUpdateAt(new \DateTimeImmutable());
         $genres['SIMULATION'] = $genreSimulation;
 
         $genreSport = new Genre();
@@ -73,8 +61,6 @@ class AppFixtures extends Fixture
         $genreSport->setDescription('Jeux de sport');
         $manager->persist($genreSport);
         $genreSport->setActif(true);
-        $genreSport->setCreatedAt(new \DateTimeImmutable());
-        $genreSport->setUpdateAt(new \DateTimeImmutable());
         $genres['SPORT'] = $genreSport;
 
         $genreCourse = new Genre();
@@ -82,8 +68,6 @@ class AppFixtures extends Fixture
         $genreCourse->setDescription('Jeux de course par ex. automobile');
         $manager->persist($genreCourse);
         $genreCourse->setActif(true);
-        $genreCourse->setCreatedAt(new \DateTimeImmutable());
-        $genreCourse->setUpdateAt(new \DateTimeImmutable());
         $genres['COURSE'] = $genreCourse;
 
         $genreReflexion = new Genre();
@@ -91,8 +75,6 @@ class AppFixtures extends Fixture
         $genreReflexion->setDescription('Jeux de réflexion, puzzles, casse-tête');
         $manager->persist($genreReflexion);
         $genreReflexion->setActif(true);
-        $genreReflexion->setCreatedAt(new \DateTimeImmutable());
-        $genreReflexion->setUpdateAt(new \DateTimeImmutable());
         $genres['REFLEXION'] = $genreReflexion;
 
         // Création des éditeurs
@@ -100,32 +82,24 @@ class AppFixtures extends Fixture
         $editeurSony->setNom('Sony Interactive Entertainment');
         $editeurSony->setPays('Japon');
         $editeurSony->setSiteWeb('https://www.sie.com');
-        $editeurSony->setCreatedAt(new \DateTimeImmutable());
-        $editeurSony->setUpdateAt(new \DateTimeImmutable());
         $manager->persist($editeurSony);
 
         $editeurNintendo = new Editeur();
         $editeurNintendo->setNom('Nintendo');
         $editeurNintendo->setPays('Japon');
         $editeurNintendo->setSiteWeb('https://www.nintendo.com');
-        $editeurNintendo->setCreatedAt(new \DateTimeImmutable());
-        $editeurNintendo->setUpdateAt(new \DateTimeImmutable());
         $manager->persist($editeurNintendo);
 
         $editeurMicrosoft = new Editeur();
         $editeurMicrosoft->setNom('Xbox Game Studios');
         $editeurMicrosoft->setPays('États-Unis');
         $editeurMicrosoft->setSiteWeb('https://www.xbox.com/games');
-        $editeurMicrosoft->setCreatedAt(new \DateTimeImmutable());
-        $editeurMicrosoft->setUpdateAt(new \DateTimeImmutable());
         $manager->persist($editeurMicrosoft);
 
         $editeurUbisoft = new Editeur();
         $editeurUbisoft->setNom('Ubisoft');
         $editeurUbisoft->setPays('France');
         $editeurUbisoft->setSiteWeb('https://www.ubisoft.com');
-        $editeurUbisoft->setCreatedAt(new \DateTimeImmutable());
-        $editeurUbisoft->setUpdateAt(new \DateTimeImmutable());
         $manager->persist($editeurUbisoft);
 
         // Création de jeux vidéo variés
@@ -135,8 +109,6 @@ class AppFixtures extends Fixture
         $jeu1->setGenre($genres['ACTION_AVENTURE']);
         $jeu1->setDeveloppeur('Naughty Dog');
         $jeu1->setDateSortie(new \DateTime('2020-06-19'));
-        $jeu1->setCreatedAt(new \DateTimeImmutable());
-        $jeu1->setUpdatedAt(new \DateTimeImmutable());
         $jeu1->setPrix(59.99);
         $manager->persist($jeu1);
 
@@ -146,8 +118,6 @@ class AppFixtures extends Fixture
         $jeu2->setGenre($genres['ACTION_AVENTURE']);
         $jeu2->setDeveloppeur('Nintendo EPD');
         $jeu2->setDateSortie(new \DateTime('2017-03-03'));
-        $jeu2->setCreatedAt(new \DateTimeImmutable());
-        $jeu2->setUpdatedAt(new \DateTimeImmutable());
         $jeu2->setPrix(69.99);
         $manager->persist($jeu2);
 
@@ -157,8 +127,6 @@ class AppFixtures extends Fixture
         $jeu3->setGenre($genres['RPG']);
         $jeu3->setDeveloppeur('FromSoftware');
         $jeu3->setDateSortie(new \DateTime('2022-02-25'));
-        $jeu3->setCreatedAt(new \DateTimeImmutable());
-        $jeu3->setUpdatedAt(new \DateTimeImmutable());
         $jeu3->setPrix(59.99);
         $manager->persist($jeu3);
 
@@ -168,8 +136,6 @@ class AppFixtures extends Fixture
         $jeu4->setGenre($genres['ACTION_AVENTURE']);
         $jeu4->setDeveloppeur('Ubisoft Montreal');
         $jeu4->setDateSortie(new \DateTime('2020-11-10'));
-        $jeu4->setCreatedAt(new \DateTimeImmutable());
-        $jeu4->setUpdatedAt(new \DateTimeImmutable());
         $jeu4->setPrix(49.99);
         $manager->persist($jeu4);
 
@@ -179,8 +145,6 @@ class AppFixtures extends Fixture
         $jeu5->setGenre($genres['SPORT']);
         $jeu5->setDeveloppeur('EA Sports');
         $jeu5->setDateSortie(new \DateTime('2023-09-29'));
-        $jeu5->setCreatedAt(new \DateTimeImmutable());
-        $jeu5->setUpdatedAt(new \DateTimeImmutable());
         $jeu5->setPrix(69.99);
         $manager->persist($jeu5);
 
@@ -190,8 +154,6 @@ class AppFixtures extends Fixture
         $jeu6->setGenre($genres['COURSE']);
         $jeu6->setDeveloppeur('Polyphony Digital');
         $jeu6->setDateSortie(new \DateTime('2022-03-04'));
-        $jeu6->setCreatedAt(new \DateTimeImmutable());
-        $jeu6->setUpdatedAt(new \DateTimeImmutable());
         $jeu6->setPrix(59.99);
         $manager->persist($jeu6);
 
@@ -201,8 +163,6 @@ class AppFixtures extends Fixture
         $jeu7->setGenre($genres['REFLEXION']);
         $jeu7->setDeveloppeur('Valve');
         $jeu7->setDateSortie(new \DateTime('2011-04-19'));
-        $jeu7->setCreatedAt(new \DateTimeImmutable());
-        $jeu7->setUpdatedAt(new \DateTimeImmutable());
         $jeu7->setPrix(19.99);
         $manager->persist($jeu7);
 
@@ -212,8 +172,6 @@ class AppFixtures extends Fixture
         $jeu8->setGenre($genres['SIMULATION']);
         $jeu8->setDeveloppeur('Maxis');
         $jeu8->setDateSortie(new \DateTime('2014-09-02'));
-        $jeu8->setCreatedAt(new \DateTimeImmutable());
-        $jeu8->setUpdatedAt(new \DateTimeImmutable());
         $jeu8->setPrix(39.99);
         $manager->persist($jeu8);
 
