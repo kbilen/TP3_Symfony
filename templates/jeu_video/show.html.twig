@@ -1,42 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}JeuVideo{% endblock %}
+{% block title %}JeuVideo
+{% endblock %}
 
 {% block body %}
-    <h1>JeuVideo</h1>
+	<h1>JeuVideo</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ jeu_video.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ jeu_video.titre }}</td>
-            </tr>
-            <tr>
-                <th>Developpeur</th>
-                <td>{{ jeu_video.developpeur }}</td>
-            </tr>
-            <tr>
-                <th>DateSortie</th>
-                <td>{{ jeu_video.dateSortie ? jeu_video.dateSortie|date('d/m/Y') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ jeu_video.prix }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ jeu_video.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ jeu_video.id }}</td>
+			</tr>
+			<tr>
+				<th>Titre</th>
+				<td>{{ jeu_video.titre }}</td>
+			</tr>
+			<tr>
+				<th>Image</th>
+				<td>
+					{% if jeu_video.imageUrl %}
+						<img src="{{ jeu_video.imageUrl }}" alt="{{ jeu_video.titre }}" style="max-height: 200px;">
+					{% else %}
+						-
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<th>Editeur</th>
+				<td>{{ jeu_video.editeur ? jeu_video.editeur.nom : '-' }}</td>
+			</tr>
+			<tr>
+				<th>Genre</th>
+				<td>{{ jeu_video.genre ? jeu_video.genre.nom : '-' }}</td>
+			</tr>
+			<tr>
+				<th>Developpeur</th>
+				<td>{{ jeu_video.developpeur }}</td>
+			</tr>
+			<tr>
+				<th>DateSortie</th>
+				<td>{{ jeu_video.dateSortie ? jeu_video.dateSortie|date('d/m/Y') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Prix</th>
+				<td>{{ jeu_video.prix|number_format(2, ',', ' ') }}
+					€</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ jeu_video.description }}</td>
+			</tr>
+			<tr>
+				<th>Créé le</th>
+				<td>{{ jeu_video.createdAt ? jeu_video.createdAt|date('d/m/Y H:i') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Mis à jour le</th>
+				<td>{{ jeu_video.updatedAt ? jeu_video.updatedAt|date('d/m/Y H:i') : '' }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_jeu_video_index') }}">retour à la liste</a>
+	<a href="{{ path('app_jeu_video_index') }}">retour à la liste</a>
 
-    <a href="{{ path('app_jeu_video_edit', {'id': jeu_video.id}) }}">Modifier</a>
+	<a href="{{ path('app_jeu_video_edit', {'id': jeu_video.id}) }}">Modifier</a>
 
-    {{ include('jeu_video/_delete_form.html.twig') }}
+	{{ include('jeu_video/_delete_form.html.twig') }}
 {% endblock %}

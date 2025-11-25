@@ -16,12 +16,6 @@ class EditeurType extends AbstractType
             ->add('pays')
             ->add('siteWeb')
             ->add('description')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
         ;
     }
 

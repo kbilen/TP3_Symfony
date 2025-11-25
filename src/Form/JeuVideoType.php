@@ -17,27 +17,37 @@ class JeuVideoType extends AbstractType
         $builder
             ->add('titre')
             ->add('developpeur')
-            ->add('dateSortie')
+            ->add('dateSortie', null, [
+                'widget' => 'single_text',
+                'label' => 'Date de sortie'
+            ])
             ->add('prix')
             ->add('description')
-            ->add('imageUrl')
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
+            ->add('imageFile', \Symfony\Component\Form\Extension\Core\Type\FileType::class, [
+                'label' => 'Image (Fichier)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez uploader une image valide (JPEG, PNG, WEBP)',
+                    ])
+                ],
             ])
             ->add('editeur', EntityType::class, [
                 'class' => Editeur::class,
-                'choice_label' => 'id',
-            ])
-            ->add('Genre', EntityType::class, [
-                'class' => Genre::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
+                'placeholder' => 'Choisir un éditeur',
             ])
             ->add('genre', EntityType::class, [
                 'class' => Genre::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
+                'placeholder' => 'Choisir un genre',
             ])
         ;
     }
