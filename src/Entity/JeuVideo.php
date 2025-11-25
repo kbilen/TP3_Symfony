@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JeuVideoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -181,6 +183,44 @@ class JeuVideo
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    #[ORM\OneToMany(mappedBy: 'jeuvideo', targetEntity: Collect::class, orphanRemoval: true)]
+    private Collection $collects;
+
+    public function __construct()
+    {
+        $this->collects = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection<int, Collect>
+     */
+    public function getCollects(): Collection
+    {
+        return $this->collects;
+    }
+
+    public function addCollect(Collect $collect): static
+    {
+        if (!$this->collects->contains($collect)) {
+            $this->collects->add($collect);
+            $collect->setJeuvideo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCollect(Collect $collect): static
+    {
+        if ($this->collects->removeElement($collect)) {
+            // set the owning side to null (unless already changed)
+            if ($collect->getJeuvideo() === $this) {
+                $collect->setJeuvideo(null);
+            }
+        }
 
         return $this;
     }

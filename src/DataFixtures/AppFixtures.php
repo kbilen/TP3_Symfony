@@ -1,9 +1,13 @@
 <?php
+
 namespace App\DataFixtures;
 
-use App\Entity\Genre;
+use App\Entity\Collect;
 use App\Entity\Editeur;
+use App\Entity\Genre;
 use App\Entity\JeuVideo;
+use App\Entity\Utilisateur;
+use App\Enum\StatutJeuEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -11,171 +15,199 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // Création des genres de jeux vidéo
+        // --- GENRES ---
         $genres = [];
+        $genreNames = [
+            'ACTION' => 'Jeux d\'action',
+            'AVENTURE' => 'Jeux d\'aventure',
+            'RPG' => 'Jeux de rôle',
+            'STRATEGIE' => 'Jeux de stratégie',
+            'SPORT' => 'Jeux de sport',
+            'COURSE' => 'Jeux de course',
+        ];
 
-        $genreAction = new Genre();
-        $genreAction->setNom('ACTION');
-        $genreAction->setDescription('Jeux d\'action : jeux de plateforme, combat, tir (FPS, TPS, …)');
-        $manager->persist($genreAction);
-        $genreAction->setActif(true);
-        $genres['ACTION'] = $genreAction;
+        foreach ($genreNames as $nom => $desc) {
+            $genre = new Genre();
+            $genre->setNom($nom);
+            $genre->setDescription($desc);
+            $genre->setActif(true);
+            $manager->persist($genre);
+            $genres[] = $genre;
+        }
 
-        $genreAventure = new Genre();
-        $genreAventure->setNom('AVENTURE');
-        $genreAventure->setDescription('Jeux d\'aventure narrative, point and click…');
-        $manager->persist($genreAventure);
-        $genreAventure->setActif(true);
-        $genres['AVENTURE'] = $genreAventure;
+        // --- EDITEURS ---
+        $editeurs = [];
+        $editeurData = [
+            ['Sony', 'Japon', 'https://www.sie.com'],
+            ['Nintendo', 'Japon', 'https://www.nintendo.com'],
+            ['Microsoft', 'USA', 'https://www.xbox.com'],
+            ['Ubisoft', 'France', 'https://www.ubisoft.com'],
+            ['EA', 'USA', 'https://www.ea.com'],
+            ['Capcom', 'Japon', 'https://www.capcom.com'],
+            ['Sega', 'Japon', 'https://www.sega.com'],
+        ];
 
-        $genreActionAventure = new Genre();
-        $genreActionAventure->setNom('ACTION_AVENTURE');
-        $genreActionAventure->setDescription('Infiltration, survival, …');
-        $manager->persist($genreActionAventure);
-        $genreActionAventure->setActif(true);
-        $genres['ACTION_AVENTURE'] = $genreActionAventure;
+        foreach ($editeurData as $data) {
+            $editeur = new Editeur();
+            $editeur->setNom($data[0]);
+            $editeur->setPays($data[1]);
+            $editeur->setSiteWeb($data[2]);
+            $editeur->setDescription("Description de l'éditeur " . $data[0]);
+            $manager->persist($editeur);
+            $editeurs[] = $editeur;
+        }
 
-        $genreRpg = new Genre();
-        $genreRpg->setNom('RPG');
-        $genreRpg->setDescription('Jeux de rôle, MMORPG, …');
-        $manager->persist($genreRpg);
-        $genreRpg->setActif(true);
-        $genres['RPG'] = $genreRpg;
+        // --- JEUX VIDEO ---
+        $jeux = [];
+        $titres = [
+            'The Last of Us', 'God of War', 'Zelda Breath of the Wild', 'Elden Ring', 'FIFA 24',
+            'Call of Duty', 'Minecraft', 'GTA V', 'Cyberpunk 2077', 'Hollow Knight',
+            'Hades', 'Celeste', 'Super Mario Odyssey', 'Red Dead Redemption 2', 'Witcher 3',
+            'Portal 2', 'Half-Life 2', 'Overwatch 2', 'Valorant', 'League of Legends'
+        ];
 
-        $genreStrategie = new Genre();
-        $genreStrategie->setNom('STRATEGIE');
-        $genreStrategie->setDescription('Jeux de stratégie (RTS, turn-based)');
-        $manager->persist($genreStrategie);
-        $genreStrategie->setActif(true);
-        $genres['STRATEGIE'] = $genreStrategie;
+        // --- JEUX VIDEO ---
+        $jeux = [];
+        $jeuxData = [
+            'The Last of Us' => 'https://upload.wikimedia.org/wikipedia/en/4/46/Video_Game_Cover_-_The_Last_of_Us.jpg',
+            'God of War' => 'https://upload.wikimedia.org/wikipedia/en/a/a7/God_of_War_4_cover.jpg',
+            'Zelda Breath of the Wild' => 'https://upload.wikimedia.org/wikipedia/en/c/c6/The_Legend_of_Zelda_Breath_of_the_Wild.jpg',
+            'Elden Ring' => 'https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg',
+            'FIFA 24' => 'https://upload.wikimedia.org/wikipedia/en/b/b9/EA_Sports_FC_24_cover.jpg',
+            'Call of Duty' => 'https://upload.wikimedia.org/wikipedia/en/1/1f/Call_of_Duty_Modern_Warfare_%282019%29_cover.jpg',
+            'Minecraft' => 'https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png',
+            'GTA V' => 'https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png',
+            'Cyberpunk 2077' => 'https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg',
+            'Hollow Knight' => 'https://upload.wikimedia.org/wikipedia/en/0/04/Hollow_Knight_first_cover_art.webp',
+            'Hades' => 'https://upload.wikimedia.org/wikipedia/en/c/cc/Hades_cover_art.jpg',
+            'Celeste' => 'https://upload.wikimedia.org/wikipedia/en/b/bc/Celeste_box_art.png',
+            'Super Mario Odyssey' => 'https://upload.wikimedia.org/wikipedia/en/8/8d/Super_Mario_Odyssey.jpg',
+            'Red Dead Redemption 2' => 'https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg',
+            'Witcher 3' => 'https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg',
+            'Portal 2' => 'https://upload.wikimedia.org/wikipedia/en/f/f9/Portal2cover.jpg',
+            'Half-Life 2' => 'https://upload.wikimedia.org/wikipedia/en/2/25/Half-Life_2_cover.jpg',
+            'Overwatch 2' => 'https://upload.wikimedia.org/wikipedia/en/5/51/Overwatch_2_cover_art.jpg',
+            'Valorant' => 'https://upload.wikimedia.org/wikipedia/en/f/f6/Valorant_cover_art.jpg',
+            'League of Legends' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/League_of_Legends_2019_vector.svg/1200px-League_of_Legends_2019_vector.svg.png'
+        ];
 
-        $genreSimulation = new Genre();
-        $genreSimulation->setNom('SIMULATION');
-        $genreSimulation->setDescription('Jeux de simulation, de gestion');
-        $manager->persist($genreSimulation);
-        $genreSimulation->setActif(false);
-        $genres['SIMULATION'] = $genreSimulation;
+        $uploadDir = __DIR__ . '/../../public/uploads';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
 
-        $genreSport = new Genre();
-        $genreSport->setNom('SPORT');
-        $genreSport->setDescription('Jeux de sport');
-        $manager->persist($genreSport);
-        $genreSport->setActif(true);
-        $genres['SPORT'] = $genreSport;
+        foreach ($jeuxData as $titre => $url) {
+            $jeu = new JeuVideo();
+            $jeu->setTitre($titre);
+            $jeu->setDeveloppeur('Studio ' . mt_rand(1, 10));
+            $jeu->setDateSortie(new \DateTime('-' . mt_rand(1, 3650) . ' days'));
+            $jeu->setPrix(mt_rand(1000, 8000) / 100);
+            $jeu->setDescription("Description du jeu " . $titre);
+            $jeu->setEditeur($editeurs[array_rand($editeurs)]);
+            $jeu->setGenre($genres[array_rand($genres)]);
 
-        $genreCourse = new Genre();
-        $genreCourse->setNom('COURSE');
-        $genreCourse->setDescription('Jeux de course par ex. automobile');
-        $manager->persist($genreCourse);
-        $genreCourse->setActif(true);
-        $genres['COURSE'] = $genreCourse;
+            // Download image
+            $extension = pathinfo($url, PATHINFO_EXTENSION);
+            if (str_contains($extension, '?')) {
+                $extension = explode('?', $extension)[0];
+            }
+            if (!$extension) $extension = 'jpg';
+            
+            $filename = strtolower(str_replace([' ', ':', "'", '(', ')'], '-', $titre)) . '.' . $extension;
+            $filepath = $uploadDir . '/' . $filename;
 
-        $genreReflexion = new Genre();
-        $genreReflexion->setNom('REFLEXION');
-        $genreReflexion->setDescription('Jeux de réflexion, puzzles, casse-tête');
-        $manager->persist($genreReflexion);
-        $genreReflexion->setActif(true);
-        $genres['REFLEXION'] = $genreReflexion;
+            // Simple download (suppress errors if offline/fails)
+            try {
+                if (!file_exists($filepath)) {
+                    // Use a user agent to avoid 403 from Wikipedia
+                    $context = stream_context_create([
+                        'http' => [
+                            'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)\r\n"
+                        ]
+                    ]);
+                    $content = @file_get_contents($url, false, $context);
+                    if ($content) {
+                        file_put_contents($filepath, $content);
+                    }
+                }
+                if (file_exists($filepath)) {
+                    $jeu->setImageUrl('/uploads/' . $filename);
+                }
+            } catch (\Exception $e) {
+                // Ignore download errors
+            }
 
-        // Création des éditeurs
-        $editeurSony = new Editeur();
-        $editeurSony->setNom('Sony Interactive Entertainment');
-        $editeurSony->setPays('Japon');
-        $editeurSony->setSiteWeb('https://www.sie.com');
-        $manager->persist($editeurSony);
+            $manager->persist($jeu);
+            $jeux[] = $jeu;
+        }
 
-        $editeurNintendo = new Editeur();
-        $editeurNintendo->setNom('Nintendo');
-        $editeurNintendo->setPays('Japon');
-        $editeurNintendo->setSiteWeb('https://www.nintendo.com');
-        $manager->persist($editeurNintendo);
+        // --- UTILISATEURS ---
+        $utilisateurs = [];
+        $userNames = [
+            ['Jean', 'Dupont', 'jdupont'],
+            ['Marie', 'Curie', 'mcurie'],
+            ['Pierre', 'Martin', 'pmartin'],
+            ['Sophie', 'Durand', 'sdurand'],
+            ['Lucas', 'Bernard', 'lbernard'],
+            ['Emma', 'Petit', 'epetit'],
+        ];
 
-        $editeurMicrosoft = new Editeur();
-        $editeurMicrosoft->setNom('Xbox Game Studios');
-        $editeurMicrosoft->setPays('États-Unis');
-        $editeurMicrosoft->setSiteWeb('https://www.xbox.com/games');
-        $manager->persist($editeurMicrosoft);
+        foreach ($userNames as $data) {
+            $user = new Utilisateur();
+            $user->setPrenom($data[0]);
+            $user->setNom($data[1]);
+            $user->setPseudo($data[2]);
+            $user->setMail(strtolower($data[2]) . '@example.com');
+            $user->setDateNaissance(new \DateTime('-' . mt_rand(6000, 15000) . ' days'));
+            $manager->persist($user);
+            $utilisateurs[] = $user;
+        }
 
-        $editeurUbisoft = new Editeur();
-        $editeurUbisoft->setNom('Ubisoft');
-        $editeurUbisoft->setPays('France');
-        $editeurUbisoft->setSiteWeb('https://www.ubisoft.com');
-        $manager->persist($editeurUbisoft);
+        // --- COLLECTIONS ---
+        $statuts = StatutJeuEnum::cases();
 
-        // Création de jeux vidéo variés
-        $jeu1 = new JeuVideo();
-        $jeu1->setTitre('The Last of Us Part II');
-        $jeu1->setEditeur($editeurSony);
-        $jeu1->setGenre($genres['ACTION_AVENTURE']);
-        $jeu1->setDeveloppeur('Naughty Dog');
-        $jeu1->setDateSortie(new \DateTime('2020-06-19'));
-        $jeu1->setPrix(59.99);
-        $manager->persist($jeu1);
+        // 4 utilisateurs avec > 5 jeux
+        for ($i = 0; $i < 4; $i++) {
+            $user = $utilisateurs[$i];
+            $nbJeux = mt_rand(6, 12);
+            
+            // Shuffle games to pick unique ones
+            shuffle($jeux);
+            
+            for ($j = 0; $j < $nbJeux; $j++) {
+                $collect = new Collect();
+                $collect->setUtilisateur($user);
+                $collect->setJeuvideo($jeux[$j]);
+                $collect->setStatut($statuts[array_rand($statuts)]);
+                $collect->setDateModifStatut(new \DateTime('-' . mt_rand(1, 365) . ' days'));
+                
+                if (mt_rand(0, 1)) {
+                    $collect->setPrixAchat(mt_rand(500, 6000) / 100);
+                    $collect->setDateAchat(new \DateTime('-' . mt_rand(365, 730) . ' days'));
+                }
+                
+                if (mt_rand(0, 1)) {
+                    $collect->setCommentaire("Commentaire sur le jeu " . $jeux[$j]->getTitre());
+                }
 
-        $jeu2 = new JeuVideo();
-        $jeu2->setTitre('The Legend of Zelda: Breath of the Wild');
-        $jeu2->setEditeur($editeurNintendo);
-        $jeu2->setGenre($genres['ACTION_AVENTURE']);
-        $jeu2->setDeveloppeur('Nintendo EPD');
-        $jeu2->setDateSortie(new \DateTime('2017-03-03'));
-        $jeu2->setPrix(69.99);
-        $manager->persist($jeu2);
+                $manager->persist($collect);
+            }
+        }
 
-        $jeu3 = new JeuVideo();
-        $jeu3->setTitre('Elden Ring');
-        $jeu3->setEditeur($editeurMicrosoft);
-        $jeu3->setGenre($genres['RPG']);
-        $jeu3->setDeveloppeur('FromSoftware');
-        $jeu3->setDateSortie(new \DateTime('2022-02-25'));
-        $jeu3->setPrix(59.99);
-        $manager->persist($jeu3);
+        // 1 utilisateur avec quelques jeux (1-3)
+        $user = $utilisateurs[4];
+        shuffle($jeux);
+        for ($j = 0; $j < 2; $j++) {
+            $collect = new Collect();
+            $collect->setUtilisateur($user);
+            $collect->setJeuvideo($jeux[$j]);
+            $collect->setStatut(StatutJeuEnum::POSSEDE);
+            $collect->setDateModifStatut(new \DateTime());
+            $manager->persist($collect);
+        }
 
-        $jeu4 = new JeuVideo();
-        $jeu4->setTitre('Assassin\'s Creed Valhalla');
-        $jeu4->setEditeur($editeurUbisoft);
-        $jeu4->setGenre($genres['ACTION_AVENTURE']);
-        $jeu4->setDeveloppeur('Ubisoft Montreal');
-        $jeu4->setDateSortie(new \DateTime('2020-11-10'));
-        $jeu4->setPrix(49.99);
-        $manager->persist($jeu4);
+        // Le dernier utilisateur (index 5) n'a pas de jeux (0 collections)
 
-        $jeu5 = new JeuVideo();
-        $jeu5->setTitre('FIFA 24');
-        $jeu5->setEditeur($editeurMicrosoft);
-        $jeu5->setGenre($genres['SPORT']);
-        $jeu5->setDeveloppeur('EA Sports');
-        $jeu5->setDateSortie(new \DateTime('2023-09-29'));
-        $jeu5->setPrix(69.99);
-        $manager->persist($jeu5);
-
-        $jeu6 = new JeuVideo();
-        $jeu6->setTitre('Gran Turismo 7');
-        $jeu6->setEditeur($editeurSony);
-        $jeu6->setGenre($genres['COURSE']);
-        $jeu6->setDeveloppeur('Polyphony Digital');
-        $jeu6->setDateSortie(new \DateTime('2022-03-04'));
-        $jeu6->setPrix(59.99);
-        $manager->persist($jeu6);
-
-        $jeu7 = new JeuVideo();
-        $jeu7->setTitre('Portal 2');
-        $jeu7->setEditeur($editeurMicrosoft);
-        $jeu7->setGenre($genres['REFLEXION']);
-        $jeu7->setDeveloppeur('Valve');
-        $jeu7->setDateSortie(new \DateTime('2011-04-19'));
-        $jeu7->setPrix(19.99);
-        $manager->persist($jeu7);
-
-        $jeu8 = new JeuVideo();
-        $jeu8->setTitre('The Sims 4');
-        $jeu8->setEditeur($editeurMicrosoft);
-        $jeu8->setGenre($genres['SIMULATION']);
-        $jeu8->setDeveloppeur('Maxis');
-        $jeu8->setDateSortie(new \DateTime('2014-09-02'));
-        $jeu8->setPrix(39.99);
-        $manager->persist($jeu8);
-
-        // Enregistrement en base de données
         $manager->flush();
     }
 }

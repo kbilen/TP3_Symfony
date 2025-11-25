@@ -11,12 +11,14 @@
 			<tr>
 				<th>Id</th>
 				<th>Titre</th>
+				<th>Image</th>
 				<th>Editeur</th>
 				<th>Genre</th>
 				<th>Developpeur</th>
 				<th>DateSortie</th>
 				<th>Prix</th>
 				<th>Description</th>
+				<th>Possédé par</th>
 				<th>actions</th>
 			</tr>
 		</thead>
@@ -25,6 +27,13 @@
 				<tr>
 					<td>{{ jeu_video.id }}</td>
 					<td>{{ jeu_video.titre }}</td>
+					<td>
+						{% if jeu_video.imageUrl %}
+							<img src="{{ jeu_video.imageUrl }}" alt="{{ jeu_video.titre }}" style="max-height: 50px;">
+						{% else %}
+							-
+						{% endif %}
+					</td>
 					<td>{{ jeu_video.editeur ? jeu_video.editeur.nom : '-' }}</td>
 					<td>{{ jeu_video.genre ? jeu_video.genre.nom : '-' }}</td>
 					<td>{{ jeu_video.developpeur }}</td>
@@ -33,13 +42,24 @@
 						€</td>
 					<td>{{ jeu_video.description }}</td>
 					<td>
+						{% for collect in jeu_video.collects %}
+							<a href="{{ path('app_collection_show', {'id': collect.utilisateur.id}) }}">
+								{{ collect.utilisateur.pseudo }}
+							</a>
+							{% if not loop.last %},
+							{% endif %}
+						{% else %}
+							-
+						{% endfor %}
+					</td>
+					<td>
 						<a href="{{ path('app_jeu_video_show', {'id': jeu_video.id}) }}">Consulter</a>
 						<a href="{{ path('app_jeu_video_edit', {'id': jeu_video.id}) }}">Modifier</a>
 					</td>
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="9">aucun enregistrement trouvé</td>
+					<td colspan="11">aucun enregistrement trouvé</td>
 				</tr>
 			{% endfor %}
 		</tbody>
