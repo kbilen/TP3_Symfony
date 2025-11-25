@@ -1,13 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Genre{% endblock %}
+{% block title %}Modifier le Genre{% endblock %}
 
 {% block body %}
-    <h1>Edit Genre</h1>
-
-    {{ include('genre/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
-
-    <a href="{{ path('app_genre_index') }}">back to list</a>
-
-    {{ include('genre/_delete_form.html.twig') }}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h1 class="h3 mb-0">Modifier le Genre</h1>
+                </div>
+                <div class="card-body">
+                    {{ include('genre/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+                </div>
+                <div class="card-footer bg-light d-flex justify-content-between align-items-center">
+                    <a href="{{ path('app_genre_index') }}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Retour à la liste
+                    </a>
+                    {{ include('genre/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

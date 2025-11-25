@@ -1,43 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Genre
-{% endblock %}
+{% block title %}Détails du Genre{% endblock %}
 
 {% block body %}
-	<h1>Genre</h1>
-
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ genre.id }}</td>
-			</tr>
-			<tr>
-				<th>Nom</th>
-				<td>{{ genre.nom }}</td>
-			</tr>
-			<tr>
-				<th>Description</th>
-				<td>{{ genre.description }}</td>
-			</tr>
-			<tr>
-				<th>Actif</th>
-				<td>{{ genre.actif ? 'Oui' : 'Non' }}</td>
-			</tr>
-			<tr>
-				<th>Créé le</th>
-				<td>{{ genre.createdAt ? genre.createdAt|date('d/m/Y H:i') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Mis à jour le</th>
-				<td>{{ genre.updatedAt ? genre.updatedAt|date('d/m/Y H:i') : '' }}</td>
-			</tr>
-		</tbody>
-	</table>
-
-	<a href="{{ path('app_genre_index') }}">Retour à la liste</a>
-
-	<a href="{{ path('app_genre_edit', {'id': genre.id}) }}">Modifier</a>
-
-	{{ include('genre/_delete_form.html.twig') }}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h1 class="h3 mb-0">Genre : {{ genre.nom }}</h1>
+                    <span class="badge {{ genre.actif ? 'bg-success' : 'bg-secondary' }}">
+                        {{ genre.actif ? 'Actif' : 'Inactif' }}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th class="text-muted" style="width: 30%">Id</th>
+                                <td>{{ genre.id }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Nom</th>
+                                <td class="fw-bold">{{ genre.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Description</th>
+                                <td>{{ genre.description }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Créé le</th>
+                                <td>{{ genre.createdAt ? genre.createdAt|date('d/m/Y H:i') : '-' }}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Mis à jour le</th>
+                                <td>{{ genre.updateAt ? genre.updateAt|date('d/m/Y H:i') : '-' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer bg-light d-flex justify-content-between align-items-center">
+                    <a href="{{ path('app_genre_index') }}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Retour à la liste
+                    </a>
+                    <div>
+                        <a href="{{ path('app_genre_edit', {'id': genre.id}) }}" class="btn btn-warning me-2">
+                            <i class="bi bi-pencil"></i> Modifier
+                        </a>
+                        {{ include('genre/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
