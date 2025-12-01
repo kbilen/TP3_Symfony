@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la collection
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier le jeu dans la collection</h1>
+
+	{{ include('collection/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+	<a href="{{ path('app_collection_show', {'id': collect.utilisateur.id}) }}">Retour à la collection</a>
+
+	{{ include('collection/_delete_form.html.twig') }}
+{% endblock %}

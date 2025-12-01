@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Collection de
+	{{ utilisateur.pseudo }}
+{% endblock %}
+
+{% block body %}
+	<h1>Collection de
+		{{ utilisateur.prenom }}
+		{{ utilisateur.nom }}</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Jeu</th>
+				<th>Image</th>
+				<th>Statut</th>
+				<th>Date Modif Statut</th>
+				<th>Prix Achat</th>
+				<th>Date Achat</th>
+				<th>Commentaire</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for collect in collects %}
+				<tr>
+					<td>{{ collect.jeuvideo.titre }}</td>
+					<td>
+						{% if collect.jeuvideo.imageUrl %}
+							<img src="{{ collect.jeuvideo.imageUrl }}" alt="{{ collect.jeuvideo.titre }}" style="max-height: 50px;">
+						{% else %}
+							-
+						{% endif %}
+					</td>
+					<td>{{ collect.statut.getLabel() }}</td>
+					<td>{{ collect.dateModifStatut ? collect.dateModifStatut|date('d/m/Y H:i') : '' }}</td>
+					<td>{{ collect.prixAchat ? collect.prixAchat|number_format(2, ',', ' ') ~ ' €' : '-' }}</td>
+					<td>{{ collect.dateAchat ? collect.dateAchat|date('d/m/Y') : '-' }}</td>
+					<td>{{ collect.commentaire }}</td>
+					<td>
+						<a href="{{ path('app_collection_edit', {'id': collect.id}) }}">Modifier</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="8">Aucun jeu dans cette collection</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_collection_add', {'id': utilisateur.id}) }}">Ajouter un jeu à la collection</a>
+	<br>
+	<a href="{{ path('app_collection_index') }}">Retour à la liste des collections</a>
+{% endblock %}
