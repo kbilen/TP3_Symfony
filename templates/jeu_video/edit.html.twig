@@ -1,24 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier le Jeu Vidéo{% endblock %}
+{% block title %}Modifier le Jeu Vidéo
+{% endblock %}
 
 {% block body %}
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-white">
-                    <h1 class="h3 mb-0">Modifier le Jeu Vidéo</h1>
-                </div>
-                <div class="card-body">
-                    {{ include('jeu_video/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
-                </div>
-                <div class="card-footer bg-light d-flex justify-content-between align-items-center">
-                    <a href="{{ path('app_jeu_video_index') }}" class="btn btn-secondary">
-                        <i class="bi bi-arrow-left"></i> Retour à la liste
-                    </a>
-                    {{ include('jeu_video/_delete_form.html.twig') }}
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row justify-content-center row-full-height">
+		<div class="col-md-8 col-full-height">
+			<div class="card shadow-sm card-scrollable-content">
+				<div class="card-header bg-white">
+					<h1 class="h3 mb-0">Modifier le Jeu Vidéo</h1>
+				</div>
+				<div class="card-body">
+					{{ include('jeu_video/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+				</div>
+				<div class="card-footer bg-light d-flex justify-content-between align-items-center">
+					<a href="{{ path('app_jeu_video_index') }}" class="btn btn-secondary">
+						<i class="bi bi-arrow-left"></i>
+						Retour à la liste
+					</a>
+					{{ include('jeu_video/_delete_form.html.twig') }}
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

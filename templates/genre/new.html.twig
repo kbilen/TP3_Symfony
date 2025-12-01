@@ -1,23 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau Genre{% endblock %}
+{% block title %}Nouveau Genre
+{% endblock %}
 
 {% block body %}
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-white">
-                    <h1 class="h3 mb-0">Créer un nouveau Genre</h1>
-                </div>
-                <div class="card-body">
-                    {{ include('genre/_form.html.twig') }}
-                </div>
-                <div class="card-footer bg-light">
-                    <a href="{{ path('app_genre_index') }}" class="btn btn-secondary">
-                        <i class="bi bi-arrow-left"></i> Retour à la liste
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row justify-content-center row-full-height">
+		<div class="col-md-8 col-full-height">
+			<div class="card shadow-sm card-scrollable-content">
+				<div class="card-header bg-white">
+					<h1 class="h3 mb-0">Créer un nouveau Genre</h1>
+				</div>
+				<div class="card-body">
+					{{ include('genre/_form.html.twig') }}
+				</div>
+				<div class="card-footer bg-light">
+					<a href="{{ path('app_genre_index') }}" class="btn btn-secondary">
+						<i class="bi bi-arrow-left"></i>
+						Retour à la liste
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

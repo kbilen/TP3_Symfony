@@ -18,6 +18,7 @@
 					<thead class="table-light">
 						<tr>
 							<th class="ps-4">Id</th>
+							<th>Image</th>
 							<th>Titre</th>
 							<th>Editeur</th>
 							<th>Genre</th>
@@ -32,6 +33,13 @@
 						{% for jeu_video in jeu_videos %}
 							<tr>
 								<td class="ps-4">{{ jeu_video.id }}</td>
+								<td>
+									{% if jeu_video.imageUrl %}
+										<img src="{{ asset(jeu_video.imageUrl) }}" alt="{{ jeu_video.titre }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+									{% else %}
+										<span class="text-muted" style="font-size: 0.8rem;">Aucune</span>
+									{% endif %}
+								</td>
 								<td class="fw-medium">{{ jeu_video.titre }}</td>
 								<td>{{ jeu_video.editeur.nom }}</td>
 								<td>
