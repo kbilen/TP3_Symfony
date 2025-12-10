@@ -46,11 +46,10 @@ final class JeuVideoController extends AbstractController
                         $this->getParameter('kernel.project_dir').'/public/uploads',
                         $newFilename
                     );
+                    $jeuVideo->setImageUrl('/uploads/'.$newFilename);
                 } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
+                    $this->addFlash('error', 'Erreur lors de l\'upload de l\'image: ' . $e->getMessage());
                 }
-
-                $jeuVideo->setImageUrl('/uploads/'.$newFilename);
             }
 
             $entityManager->persist($jeuVideo);
@@ -93,11 +92,10 @@ final class JeuVideoController extends AbstractController
                         $this->getParameter('kernel.project_dir').'/public/uploads',
                         $newFilename
                     );
+                    $jeuVideo->setImageUrl('/uploads/'.$newFilename);
                 } catch (FileException $e) {
-                    // ... handle exception
+                    $this->addFlash('error', 'Erreur lors de l\'upload de l\'image: ' . $e->getMessage());
                 }
-
-                $jeuVideo->setImageUrl('/uploads/'.$newFilename);
             }
 
             $entityManager->flush();
