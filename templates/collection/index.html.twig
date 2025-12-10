@@ -3,33 +3,66 @@
 {% block title %}Collections des Utilisateurs
 {% endblock %}
 
-{% block body %}
-	<h1>Collections des Utilisateurs</h1>
+{% block breadcrumb %}
+	<nav aria-label="breadcrumb" class="mb-4">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_home') }}">Accueil</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Collections</li>
+		</ol>
+	</nav>
+{% endblock %}
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Utilisateur</th>
-				<th>Nombre de jeux</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for utilisateur in utilisateurs %}
-				<tr>
-					<td>{{ utilisateur.prenom }}
-						{{ utilisateur.nom }}
-						({{ utilisateur.pseudo }})</td>
-					<td>{{ utilisateur.collects|length }}</td>
-					<td>
-						<a href="{{ path('app_collection_show', {'id': utilisateur.id}) }}">Voir la collection</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="3">Aucun utilisateur trouvé</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+{% block body %}
+	<div class="card shadow-sm card-full-height">
+		<div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+			<h1 class="h3 mb-0">Collections des Utilisateurs</h1>
+		</div>
+		<div class="card-body p-0">
+			<div class="table-scrollable-area">
+				<table class="table table-hover table-striped mb-0">
+					<thead class="table-light">
+						<tr>
+							<th class="ps-4">Utilisateur</th>
+							<th>Pseudo</th>
+							<th>Email</th>
+							<th>Nombre de jeux</th>
+							<th class="text-end pe-4">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for utilisateur in utilisateurs %}
+							<tr>
+								<td class="ps-4 fw-medium">{{ utilisateur.prenom }}
+									{{ utilisateur.nom }}</td>
+								<td>
+									<span class="badge bg-primary">{{ utilisateur.pseudo }}</span>
+								</td>
+								<td>{{ utilisateur.mail }}</td>
+								<td>
+									{% if utilisateur.collects|length > 0 %}
+										<span class="badge bg-success">{{ utilisateur.collects|length }}
+											jeux</span>
+									{% else %}
+										<span class="badge bg-secondary">Aucun jeu</span>
+									{% endif %}
+								</td>
+								<td class="text-end pe-4">
+									<a href="{{ path('app_collection_show', {'id': utilisateur.id}) }}" class="btn btn-sm btn-outline-info">
+										<i class="bi bi-collection"></i>
+										Voir la collection
+									</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="5" class="text-center py-4 text-muted">Aucun utilisateur trouvé</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 {% endblock %}

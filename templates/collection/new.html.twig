@@ -1,13 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un jeu
+{% block title %}Ajouter un jeu à la collection
+{% endblock %}
+
+{% block breadcrumb %}
+	<nav aria-label="breadcrumb" class="mb-4">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_home') }}">Accueil</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_collection_index') }}">Collections</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_collection_show', {'id': utilisateur.id}) }}">{{ utilisateur.pseudo }}</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Ajouter</li>
+		</ol>
+	</nav>
 {% endblock %}
 
 {% block body %}
-	<h1>Ajouter un jeu à la collection de
-		{{ utilisateur.pseudo }}</h1>
-
-	{{ include('collection/_form.html.twig') }}
-
-	<a href="{{ path('app_collection_show', {'id': utilisateur.id}) }}">Retour à la collection</a>
+	<div class="row justify-content-center row-full-height">
+		<div class="col-md-8 col-full-height">
+			<div class="card shadow-sm card-scrollable-content">
+				<div class="card-header bg-white">
+					<h1 class="h3 mb-0">
+						<i class="bi bi-plus-circle text-success"></i>
+						Ajouter un jeu à la collection de
+						{{ utilisateur.pseudo }}
+					</h1>
+				</div>
+				<div class="card-body">
+					{{ include('collection/_form.html.twig') }}
+				</div>
+				<div class="card-footer bg-light">
+					<a href="{{ path('app_collection_show', {'id': utilisateur.id}) }}" class="btn btn-secondary">
+						<i class="bi bi-arrow-left"></i>
+						Retour à la collection
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

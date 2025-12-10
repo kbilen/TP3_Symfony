@@ -3,42 +3,81 @@
 {% block title %}Liste des Utilisateurs
 {% endblock %}
 
+{% block breadcrumb %}
+	<nav aria-label="breadcrumb" class="mb-4">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_home') }}">Accueil</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Utilisateurs</li>
+		</ol>
+	</nav>
+{% endblock %}
+
 {% block body %}
-	<h1>Liste des Utilisateurs</h1>
-
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Prénom</th>
-				<th>Nom</th>
-				<th>Pseudo</th>
-				<th>Email</th>
-				<th>Date de naissance</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for utilisateur in utilisateurs %}
-				<tr>
-					<td>{{ utilisateur.id }}</td>
-					<td>{{ utilisateur.prenom }}</td>
-					<td>{{ utilisateur.nom }}</td>
-					<td>{{ utilisateur.pseudo }}</td>
-					<td>{{ utilisateur.mail }}</td>
-					<td>{{ utilisateur.dateNaissance ? utilisateur.dateNaissance|date('d/m/Y') : '' }}</td>
-					<td>
-						<a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}">Consulter</a>
-						<a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="7">Aucun utilisateur trouvé</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
-	<a href="{{ path('app_utilisateur_new') }}">Ajouter un utilisateur</a>
+	<div class="card shadow-sm card-full-height">
+		<div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+			<h1 class="h3 mb-0">Liste des Utilisateurs</h1>
+			<a href="{{ path('app_utilisateur_new') }}" class="btn btn-primary">
+				<i class="bi bi-plus-lg"></i>
+				Ajouter un utilisateur
+			</a>
+		</div>
+		<div class="card-body p-0">
+			<div class="table-scrollable-area">
+				<table class="table table-hover table-striped mb-0">
+					<thead class="table-light">
+						<tr>
+							<th class="ps-4">Id</th>
+							<th>Prénom</th>
+							<th>Nom</th>
+							<th>Pseudo</th>
+							<th>Email</th>
+							<th>Date de naissance</th>
+							<th>Collection</th>
+							<th class="text-end pe-4">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for utilisateur in utilisateurs %}
+							<tr>
+								<td class="ps-4">{{ utilisateur.id }}</td>
+								<td>{{ utilisateur.prenom }}</td>
+								<td class="fw-medium">{{ utilisateur.nom }}</td>
+								<td>
+									<span class="badge bg-primary">{{ utilisateur.pseudo }}</span>
+								</td>
+								<td>{{ utilisateur.mail }}</td>
+								<td>{{ utilisateur.dateNaissance ? utilisateur.dateNaissance|date('d/m/Y') : '-' }}</td>
+								<td>
+									{% if utilisateur.collects|length > 0 %}
+										<a href="{{ path('app_collection_show', {'id': utilisateur.id}) }}" class="badge bg-success text-decoration-none">
+											{{ utilisateur.collects|length }}
+											jeux
+										</a>
+									{% else %}
+										<span class="badge bg-secondary">Aucun jeu</span>
+									{% endif %}
+								</td>
+								<td class="text-end pe-4">
+									<div class="btn-group" role="group">
+										<a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}" class="btn btn-sm btn-outline-info" title="Consulter">
+											Consulter
+										</a>
+										<a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="btn btn-sm btn-outline-warning" title="Modifier">
+											Modifier
+										</a>
+									</div>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="8" class="text-center py-4 text-muted">Aucun utilisateur trouvé</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 {% endblock %}

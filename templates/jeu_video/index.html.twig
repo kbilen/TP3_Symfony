@@ -37,6 +37,7 @@
 							<th>Date Sortie</th>
 							<th>Prix</th>
 							<th>Description</th>
+							<th>Possesseurs</th>
 							<th class="text-end pe-4">Actions</th>
 						</tr>
 					</thead>
@@ -64,6 +65,17 @@
 								<td>{{ jeu_video.dateSortie ? jeu_video.dateSortie|date('d/m/Y') : '' }}</td>
 								<td class="text-nowrap">{{ jeu_video.prix|number_format(2, ',', ' ') }}€</td>
 								<td>{{ jeu_video.description|length > 30 ? jeu_video.description|slice(0, 30) ~ '...' : jeu_video.description }}</td>
+								<td>
+									{% if jeu_video.collects|length > 0 %}
+										{% for collect in jeu_video.collects %}
+											<a href="{{ path('app_collection_show', {'id': collect.utilisateur.id}) }}" class="badge bg-secondary text-decoration-none me-1" title="{{ collect.statut.getLabel() }}">
+												{{ collect.utilisateur.pseudo }}
+											</a>
+										{% endfor %}
+									{% else %}
+										<span class="text-muted">Aucun</span>
+									{% endif %}
+								</td>
 								<td class="text-end pe-4">
 									<div class="btn-group" role="group">
 										<a href="{{ path('app_jeu_video_show', {'id': jeu_video.id}) }}" class="btn btn-sm btn-outline-info" title="Consulter">
@@ -77,7 +89,7 @@
 							</tr>
 						{% else %}
 							<tr>
-								<td colspan="9" class="text-center py-4 text-muted">Aucun jeu vidéo trouvé</td>
+								<td colspan="11" class="text-center py-4 text-muted">Aucun jeu vidéo trouvé</td>
 							</tr>
 						{% endfor %}
 					</tbody>

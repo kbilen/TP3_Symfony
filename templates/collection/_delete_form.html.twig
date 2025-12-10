@@ -1,4 +1,7 @@
 <form method="post" action="{{ path('app_collection_delete', {'id': collect.id}) }}" onsubmit="return confirm('Voulez-vous vraiment retirer ce jeu de la collection ?');">
 	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ collect.id) }}">
-	<button class="btn">Retirer de la collection</button>
+	<button class="btn btn-danger">
+		<i class="bi bi-trash"></i>
+		Retirer de la collection
+	</button>
 </form>
