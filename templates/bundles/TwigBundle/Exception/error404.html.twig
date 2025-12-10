@@ -1,0 +1,37 @@
+{# TÂCHE 2: Vue personnalisée pour l'erreur 404 #}
+{# Chemin: templates/bundles/TwigBundle/Exception/error404.html.twig #}
+
+{% extends 'base.html.twig' %}{% block title %}
+Erreur 404 - Page non trouvée
+{% endblock %}{% block breadcrumb %}
+{% endblock %}{% block menu %}
+{% endblock %}
+
+	{% block body %}
+		<div class="container py-5"> <div class="row justify-content-center">
+			<div class="col-md-8 text-center">
+				<div class="card shadow-lg border-0">
+					<div class="card-body py-5">
+						<div class="mb-4">
+							<i class="bi bi-exclamation-triangle text-warning" style="font-size: 5rem;"></i>
+						</div>
+
+						<h1 class="display-4 mb-3">Page non trouvée</h1>
+
+						<p class="errorCode fs-4 text-danger fw-bold mb-3">
+							Error 404 Not Found
+						</p>
+
+						<p class="detail text-muted mb-4">
+							La page que vous recherchez n'existe pas.
+						</p>
+
+						<a class="aBtn btn btn-primary btn-lg" href="{{ path('app_home') }}">
+							<i class="bi bi-house-door me-2"></i>Retourner à l'accueil
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

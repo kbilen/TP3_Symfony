@@ -1,0 +1,37 @@
+{# TÂCHE 2: Vue personnalisée pour l'erreur 403 #}
+{# Chemin: templates/bundles/TwigBundle/Exception/error403.html.twig #}
+
+{% extends 'base.html.twig' %}{% block title %}
+Erreur 403 - Accès refusé
+{% endblock %}{% block breadcrumb %}
+{% endblock %}{% block menu %}
+{% endblock %}
+
+	{% block body %}
+		<div class="container py-5"> <div class="row justify-content-center">
+			<div class="col-md-8 text-center">
+				<div class="card shadow-lg border-0">
+					<div class="card-body py-5">
+						<div class="mb-4">
+							<i class="bi bi-shield-lock text-danger" style="font-size: 5rem;"></i>
+						</div>
+
+						<h1 class="display-4 mb-3">Accès refusé</h1>
+
+						<p class="errorCode fs-4 text-danger fw-bold mb-3">
+							Error 403 Forbidden
+						</p>
+
+						<p class="detail text-muted mb-4">
+							Vous n'avez pas les droits nécessaires pour accéder à cette page.
+						</p>
+
+						<a class="aBtn btn btn-primary btn-lg" href="{{ path('app_home') }}">
+							<i class="bi bi-house-door me-2"></i>Retourner à l'accueil
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
