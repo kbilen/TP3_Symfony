@@ -1,0 +1,98 @@
+/* ===== OPQUAST - Styles de qualité web ===== */
+
+/* Champs obligatoires avec astérisque rouge */
+.required .form-label::after,
+label.required::after {
+    content: " *";
+    color: #ef4444;
+    font-weight: bold;
+}
+
+/* Labels de formulaire améliorés */
+.form-label {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+/* Select stylisé */
+.form-select {
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1rem;
+}
+
+.form-select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Messages d'erreur de validation */
+.invalid-feedback {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid {
+    border-color: #ef4444;
+}
+
+/* Messages d'aide */
+.form-text {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Flash messages stylisés OPQUAST */
+.alert {
+    border-radius: 10px;
+    border: none;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+}
+
+.alert-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+}
+
+.alert-warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+}
+
+.alert-info {
+    background-color: rgba(79, 70, 229, 0.1);
+    color: #4f46e5;
+}
+
+/* Focus visible pour accessibilité */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+/* Skip link pour accessibilité */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #4f46e5;
+    color: white;
+    padding: 0.5rem 1rem;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}
