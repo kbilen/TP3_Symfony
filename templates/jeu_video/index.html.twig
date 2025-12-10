@@ -62,8 +62,7 @@
 								</td>
 								<td>{{ jeu_video.developpeur }}</td>
 								<td>{{ jeu_video.dateSortie ? jeu_video.dateSortie|date('d/m/Y') : '' }}</td>
-								<td>{{ jeu_video.prix|number_format(2, ',', ' ') }}
-									€</td>
+								<td class="text-nowrap">{{ jeu_video.prix|number_format(2, ',', ' ') }}€</td>
 								<td>{{ jeu_video.description|length > 30 ? jeu_video.description|slice(0, 30) ~ '...' : jeu_video.description }}</td>
 								<td class="text-end pe-4">
 									<div class="btn-group" role="group">
