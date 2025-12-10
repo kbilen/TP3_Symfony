@@ -3,6 +3,20 @@
 {% block title %}Nouveau Jeu Vidéo
 {% endblock %}
 
+{% block breadcrumb %}
+	<nav aria-label="breadcrumb" class="mb-4">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_home') }}">Accueil</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_jeu_video_index') }}">Jeux Vidéo</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Nouveau</li>
+		</ol>
+	</nav>
+{% endblock %}
+
 {% block body %}
 	<div class="row justify-content-center row-full-height">
 		<div class="col-md-8 col-full-height">

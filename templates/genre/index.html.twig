@@ -3,6 +3,17 @@
 {% block title %}Liste des Genres
 {% endblock %}
 
+{% block breadcrumb %}
+	<nav aria-label="breadcrumb" class="mb-4">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_home') }}">Accueil</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Genres</li>
+		</ol>
+	</nav>
+{% endblock %}
+
 {% block body %}
 	<div class="card shadow-sm card-full-height">
 		<div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
