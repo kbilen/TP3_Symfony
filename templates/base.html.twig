@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="{% block meta_description %}GameVault - Votre bibliothèque de jeux vidéo. Gérez, découvrez et organisez votre collection de jeux.{% endblock %}">
+		<meta name="description" content="{% block meta_description %}K&N Games - Votre bibliothèque de jeux vidéo. Gérez, découvrez et organisez votre collection de jeux.{% endblock %}">
 		<title>
 			{% block title %}Mon Application Symfony
 			{% endblock %}
@@ -45,9 +45,7 @@
 				{% endblock %}
 			</div>
 
-			<main
-				class="container flex-grow-1">
-				{# Messages flash OPQUAST - Notifications utilisateur #}
+			<main class="container flex-grow-1">
 				{% for label, messages in app.flashes %}
 					{% for message in messages %}
 						<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
@@ -58,22 +56,15 @@
 					{% endfor %}
 				{% endfor %}
 
-				<footer class="py-4 mt-auto">
-					<div class="container text-center">
-						<p class="mb-0 small text-muted">
-							&copy;
-							{{ 'now'|date('Y') }}
-							- Programmation Avancée BILEN & ANGLADA
-						</p>
-					</div>
-				</footer>
+				{% block body %}{% endblock %}
+			</main>
 
 			<footer class="py-4 mt-auto">
 				<div class="container text-center">
 					<p class="mb-0 small text-muted">
 						&copy;
 						{{ 'now'|date('Y') }}
-						- TP5 Design CSS BUT Info
+						- Programmation Avancée BILEN & ANGLADA
 					</p>
 				</div>
 			</footer>

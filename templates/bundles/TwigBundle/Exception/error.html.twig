@@ -1,17 +1,15 @@
-{# TÂCHE 2: Vue personnalisée pour les erreurs génériques #}
-{# Chemin: templates/bundles/TwigBundle/Exception/error.html.twig #}
-{# Cette vue est utilisée pour toutes les erreurs non gérées spécifiquement (500, etc.) #}
-
-{% extends 'base.html.twig' %}{% block title %}
+{% extends 'base.html.twig' %}
+{% block title %}
 	Erreur
 	{{ status_code }}
-- Une erreur est survenue
-{% endblock %}{% block breadcrumb %}
-{% endblock %}{% block menu %}
+	- Une erreur est survenue
 {% endblock %}
+{% block breadcrumb %}{% endblock %}
+{% block menu %}{% endblock %}
 
-	{% block body %}
-		<div class="container py-5"> <div class="row justify-content-center">
+{% block body %}
+	<div class="container py-5">
+		<div class="row justify-content-center">
 			<div class="col-md-8 text-center">
 				<div class="card shadow-lg border-0">
 					<div class="card-body py-5">
@@ -29,7 +27,7 @@
 
 						<p class="detail text-muted mb-4">
 							Nous sommes désolés, une erreur inattendue s'est produite. 
-							                        Veuillez réessayer plus tard.
+														                        Veuillez réessayer plus tard.
 						</p>
 
 						<a class="aBtn btn btn-primary btn-lg" href="{{ path('app_home') }}">

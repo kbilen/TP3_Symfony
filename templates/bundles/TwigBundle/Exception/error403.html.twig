@@ -1,14 +1,13 @@
-{# TÂCHE 2: Vue personnalisée pour l'erreur 403 #}
-{# Chemin: templates/bundles/TwigBundle/Exception/error403.html.twig #}
-
-{% extends 'base.html.twig' %}{% block title %}
-Erreur 403 - Accès refusé
-{% endblock %}{% block breadcrumb %}
-{% endblock %}{% block menu %}
+{% extends 'base.html.twig' %}
+{% block title %}
+	Erreur 403 - Accès refusé
 {% endblock %}
+{% block breadcrumb %}{% endblock %}
+{% block menu %}{% endblock %}
 
-	{% block body %}
-		<div class="container py-5"> <div class="row justify-content-center">
+{% block body %}
+	<div class="container py-5">
+		<div class="row justify-content-center">
 			<div class="col-md-8 text-center">
 				<div class="card shadow-lg border-0">
 					<div class="card-body py-5">
