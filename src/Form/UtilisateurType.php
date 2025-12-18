@@ -6,9 +6,11 @@ use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class UtilisateurType extends AbstractType
 {
@@ -24,9 +26,26 @@ class UtilisateurType extends AbstractType
                 'label' => 'Date de naissance',
                 'required' => false,
             ])
-            ->add('imageProfil', TextType::class, [
-                'label' => 'Image de profil (URL)',
+            ->add('imageProfilFile', FileType::class, [
+                'label' => 'Image de profil',
+                'mapped' => false,
                 'required' => false,
+                'attr' => [
+                    'accept' => 'image/*',
+                    'class' => 'dropzone-input',
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                            'image/gif',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez uploader une image valide (JPG, PNG, WebP, GIF)',
+                    ])
+                ],
             ])
         ;
     }
@@ -38,3 +57,4 @@ class UtilisateurType extends AbstractType
         ]);
     }
 }
+

@@ -1,4 +1,241 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_start(form, {'attr': {'class': 'form-modern', 'enctype': 'multipart/form-data'}}) }}
+
+<div class="row">
+	<div class="col-md-8">
+		{{ form_row(form.prenom) }}
+		{{ form_row(form.nom) }}
+		{{ form_row(form.pseudo) }}
+		{{ form_row(form.mail) }}
+		{{ form_row(form.dateNaissance) }}
+	</div>
+	<div class="col-md-4">
+		<label class="form-label fw-bold">Image de profil</label>
+
+		<div class="dropzone-container" id="dropzone">
+			<div class="dropzone-content">
+				<div class="dropzone-preview" id="preview" style="display: none;">
+					<img id="preview-image" src="" alt="Aperçu">
+					<button type="button" class="btn-remove-image" id="remove-image">
+						<i class="bi bi-x-lg"></i>
+					</button>
+				</div>
+				<div class="dropzone-placeholder" id="placeholder">
+					<i class="bi bi-cloud-arrow-up"></i>
+					<p class="dropzone-text">Glissez-déposez une image ici</p>
+					<p class="dropzone-subtext">ou cliquez pour sélectionner</p>
+					<span class="dropzone-formats">JPG, PNG, WebP, GIF (max 2Mo)</span>
+				</div>
+			</div>
+			{{ form_widget(form.imageProfilFile, {'attr': {'class': 'dropzone-input', 'id': 'image-input'}}) }}
+		</div>
+
+		{% if utilisateur is defined and utilisateur.imageProfil %}
+			<div class="current-image mt-3">
+				<small class="text-muted">Image actuelle :</small>
+				<img src="{{ utilisateur.imageProfil }}" alt="Image actuelle" class="img-thumbnail mt-1" style="max-height: 80px;">
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+<div class="form-actions mt-4">
+	<button class="btn btn-primary btn-lg">
+		<i class="bi bi-check-lg me-2"></i>
+		{{ button_label|default('Sauvegarder') }}
+	</button>
+</div>
+
 {{ form_end(form) }}
+
+<style>
+	.dropzone-container {
+		position: relative;
+		border: 2px dashed #cbd5e1;
+		border-radius: 16px;
+		background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+		min-height: 200px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		overflow: hidden;
+	}
+
+	.dropzone-container:hover,
+	.dropzone-container.dragover {
+		border-color: var(--primary-color);
+		background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+		transform: scale(1.02);
+	}
+
+	.dropzone-container.dragover {
+		box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+	}
+
+	.dropzone-content {
+		text-align: center;
+		padding: 1.5rem;
+		width: 100%;
+	}
+
+	.dropzone-placeholder i {
+		font-size: 3rem;
+		color: var(--primary-color);
+		margin-bottom: 0.75rem;
+		display: block;
+	}
+
+	.dropzone-text {
+		font-weight: 600;
+		color: var(--text-main);
+		margin-bottom: 0.25rem;
+	}
+
+	.dropzone-subtext {
+		color: var(--text-muted);
+		font-size: 0.875rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.dropzone-formats {
+		display: inline-block;
+		background: white;
+		padding: 0.25rem 0.75rem;
+		border-radius: 20px;
+		font-size: 0.75rem;
+		color: var(--text-muted);
+		border: 1px solid #e2e8f0;
+	}
+
+	.dropzone-input {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	.dropzone-preview {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.dropzone-preview img {
+		max-width: 100%;
+		max-height: 180px;
+		border-radius: 12px;
+		object-fit: cover;
+	}
+
+	.btn-remove-image {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		background: #ef4444;
+		color: white;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.2s ease;
+		box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+	}
+
+	.btn-remove-image:hover {
+		background: #dc2626;
+		transform: scale(1.1);
+	}
+
+	.current-image {
+		text-align: center;
+		padding: 0.5rem;
+		background: #f8fafc;
+		border-radius: 8px;
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+const dropzone = document.getElementById('dropzone');
+const input = document.getElementById('image-input') || document.querySelector('.dropzone-input');
+const preview = document.getElementById('preview');
+const previewImage = document.getElementById('preview-image');
+const placeholder = document.getElementById('placeholder');
+const removeBtn = document.getElementById('remove-image');
+
+if (! dropzone || ! input) 
+return;
+
+
+// Drag events
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+dropzone.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults(e) {
+e.preventDefault();
+e.stopPropagation();
+}['dragenter', 'dragover'].forEach(eventName => {
+dropzone.addEventListener(eventName, () => {
+dropzone.classList.add('dragover');
+}, false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+dropzone.addEventListener(eventName, () => {
+dropzone.classList.remove('dragover');
+}, false);
+});
+
+// Handle drop
+dropzone.addEventListener('drop', function (e) {
+const files = e.dataTransfer.files;
+if (files.length > 0) {
+input.files = files;
+showPreview(files[0]);
+}
+});
+
+// Handle file select
+input.addEventListener('change', function () {
+if (this.files && this.files[0]) {
+showPreview(this.files[0]);
+}
+});
+
+// Show preview
+function showPreview(file) {
+if (! file.type.startsWith('image/')) {
+alert('Veuillez sélectionner une image valide');
+return;
+}
+
+const reader = new FileReader();
+reader.onload = function (e) {
+previewImage.src = e.target.result;
+preview.style.display = 'block';
+placeholder.style.display = 'none';
+};
+reader.readAsDataURL(file);
+}
+
+// Remove image
+if (removeBtn) {
+removeBtn.addEventListener('click', function (e) {
+e.preventDefault();
+e.stopPropagation();
+input.value = '';
+preview.style.display = 'none';
+placeholder.style.display = 'block';
+});
+}
+});
+</script>

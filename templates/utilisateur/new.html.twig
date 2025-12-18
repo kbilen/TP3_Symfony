@@ -3,10 +3,37 @@
 {% block title %}Nouvel Utilisateur
 {% endblock %}
 
+{% block breadcrumb %}
+	<nav aria-label="breadcrumb" class="mb-4">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_home') }}">Accueil</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{ path('app_utilisateur_index') }}">Utilisateurs</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Nouveau</li>
+		</ol>
+	</nav>
+{% endblock %}
+
 {% block body %}
-	<h1>Créer un nouvel Utilisateur</h1>
-
-	{{ include('utilisateur/_form.html.twig') }}
-
-	<a href="{{ path('app_utilisateur_index') }}">Retour à la liste</a>
+	<div class="row justify-content-center">
+		<div class="col-lg-8">
+			<div class="card shadow-sm">
+				<div class="card-header bg-white d-flex align-items-center">
+					<i class="bi bi-person-plus-fill text-primary fs-4 me-3"></i>
+					<h1 class="h3 mb-0">Créer un nouvel Utilisateur</h1>
+				</div>
+				<div class="card-body p-4">
+					{{ include('utilisateur/_form.html.twig') }}
+				</div>
+				<div class="card-footer bg-light">
+					<a href="{{ path('app_utilisateur_index') }}" class="btn btn-outline-secondary">
+						<i class="bi bi-arrow-left me-2"></i>Retour à la liste
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
